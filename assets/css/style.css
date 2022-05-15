@@ -1,3 +1,10 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
-    background: url("");
+    background-image: url("/assets/images/background-mobile.png");
+    background-color: white;
+    width: 100vw;
+    background-size: cover;
 }
