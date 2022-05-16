@@ -158,6 +158,18 @@ input[class="initials"] {
     font-weight: var(--font-weight-bold);
 }
 
+.answer-btn {
+    margin: .25rem auto;
+    padding: .25rem 1rem;
+    background-color: var(--clr-lite);
+    color: var(--clr-primary);
+    border: .5px solid var(--clr-drk);
+    border-radius: 2rem;
+    font-size: var(--font-size-xsmall);
+    font-weight: var(--font-weight-thin);
+
+}
+
 .btn:hover, .start__btn:hover, .restart__btn:hover {
     border: .5px solid var(--clr-lite);
     opacity: .8;
