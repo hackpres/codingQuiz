@@ -8,6 +8,8 @@
     --clr-primary-dim: rgba(130 64 90 1);
     --clr-drk: 	hsl(23, 35%, 21%);
     --clr-lite: hsl(22, 100%, 88%);
+    --clr-correct: hsl(104, 15%, 49%);
+    --clr-wrong: hsl(10, 44%, 49%);
 
     --primary-font: "neuzeit-grotesk", sans-serif;
     --timer-font: "sanvito-pro-caption, sans-serif";
@@ -90,7 +92,7 @@ main {
     flex-basis: 100%;
 }
 
-.start__btn, .restart__btn {
+.start__btn, .next__btn, .restart__btn {
     margin: 2rem;
     padding: .75rem 1.75rem;
     background-color: var(--clr-primary);
@@ -170,9 +172,25 @@ input[class="initials"] {
 
 }
 
-.btn:hover, .start__btn:hover, .restart__btn:hover {
+.answer-btn:hover {
+    border: 1px solid var(--clr-primary);
+    box-shadow: 0 0 5px 1px var(--clr-primary);
+    opacity: .8;
+}
+
+.btn:hover, .start__btn:hover, .next__btn:hover, .restart__btn:hover {
     border: .5px solid var(--clr-lite);
     opacity: .8;
+}
+
+.correct {
+    background-color: var(--clr-correct);
+    color: var(--clr-drk);
+}
+
+.wrong {
+    background-color: var(--clr-wrong);
+    color: var(--clr-lite);
 }
 
 .timer__container {

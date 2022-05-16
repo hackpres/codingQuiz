@@ -1,8 +1,10 @@
 // be able to start the quiz using start btn
 const startBtn = document.getElementById("quiz-start-btn");
+const nextBtn = document.getElementById("quiz-next-btn");
 const restartBtn = document.getElementById("quiz-restart-btn");
 const titleContainer = document.getElementById("title-container");
 const questionContainer = document.getElementById("quiz-container");
+const completeContainer = document.getElementById("quiz-complete-container");
 const questionElement = document.getElementById("question");
 const answerBtnElements = document.getElementById("answer-btn-container");
 
@@ -10,6 +12,10 @@ let shuffledQuestions, currentQuestionIndex;
 
 startBtn.addEventListener("click", startQuiz);
 restartBtn.addEventListener("click", startQuiz);
+nextBtn.addEventListener("click", () => {
+    currentQuestionIndex++;
+    nextQuestion();
+})
 // when quiz starts; a timer begins, main screen clears, and quiz screen loads
 // quiz screen components need to be pulled from quiz object
 function startQuiz() {
@@ -53,10 +59,18 @@ function resetState() {
 function selectAnswer(e) {
     const selectedBtn = e.target;
     const correct = selectedBtn.dataset.correct;
-    setStatusClass(document.body, correct);
     Array.from(answerBtnElements.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
     });
+    if (shuffledQuestions.length > currentQuestionIndex +1) {
+        nextBtn.classList.remove("hide");
+    } else {
+        setTimeout(function() {
+           questionContainer.classList.add("hide");
+            completeContainer.classList.remove("hide"); 
+        }, 1500);
+    }
+    
 }
 
 function setStatusClass(element, correct) {
@@ -75,13 +89,193 @@ function clearStatusClass(element) {
 // when all questions are answered, or the timer reaches 0 the quiz ends and the quiz complete screen loads
 
 const questions = [
-    {
-        question: "Which is not an array method?",
+    {question: "Which is not an array method?",
         answers: [
             {text: "forEach()", correct: false},
             {text: "concat()", correct: false},
             {text: "lastIndexOf()", correct: false},
             {text: "length()", correct: true}
-        ]
-    }
+        ]},
+    {question: "",
+        answers: [
+            {text: "", correct: false},
+            {text: "", correct: false},
+            {text: "", correct: false},
+            {text: "", correct: false},
+        ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
+    // {question: "",
+    //     answers: [
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //         {text: "", correct: false},
+    //     ]},
 ]
