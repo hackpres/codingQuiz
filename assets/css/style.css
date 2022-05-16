@@ -158,7 +158,7 @@ input[class="initials"] {
     font-weight: var(--font-weight-bold);
 }
 
-.btn:hover {
+.btn:hover, .start__btn:hover, .restart__btn:hover {
     border: .5px solid var(--clr-lite);
     opacity: .8;
 }
