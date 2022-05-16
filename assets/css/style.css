@@ -19,6 +19,7 @@
     --font-size-large: 2.8rem;
     --font-size-medium: 2.3rem;
     --font-size-small: 1.75rem;
+    --font-size-xsmall: 1.25rem;
 }
 
 html {
@@ -72,7 +73,7 @@ main {
 .quiz__title {
     display: flex;
     justify-content: center;
-    margin: 0;
+    margin: 4rem 0 0;
     font-size: var(--font-size-xlarge);
     font-weight: var(--font-weight-bold);
     flex-basis: 100%;
@@ -100,8 +101,11 @@ main {
     font-weight: var(--font-weight-bold);
 }
 
-.quiz__container {
+.timer__container, .quiz__container, .quiz__complete__container{
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .question__container, .quiz__complete__text, .highScore__scores__header {
@@ -109,6 +113,30 @@ main {
     font-weight: var(--font-weight-thin);
     color: var(--clr-drk);
     font-size: var(--font-size-medium);
+    text-align: center;
+}
+
+.initials__label {
+    display: flex;
+    font-size: var(--font-size-xsmall);
+    font-weight: var(--font-weight-bold);
+    color: var(--clr-drk);
+    justify-content: center;
+    align-items: center;
+}
+
+.initials {
+    width: 30%;
+    height: 2.5rem;
+    background-color: var(--clr-lite);
+    border: 1px solid var(--clr-primary);
+    border-radius: 2rem;
+    margin: .5rem 35%;
+}
+input[class="initials"] {
+    color: var(--clr-drk);
+    font-family: var(--primary-font);
+    font-size: var(--font-size-xsmall);
     text-align: center;
 }
 
