@@ -4,23 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/trj0jfc.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
     <title>Coding Quiz</title>
 </head>
 <body>
-    <header id="highScore__menu">
-        <div id="highScore__menu__top" class="highScore__menu__icon"></div>
-        <div id="highScore__menu__mid" class="highScore__menu__icon"></div>
-        <div id="highScore__menu__bottom" class="highScore__menu__icon"></div>
+    <header id="highScore-menu">
+        <div id="highScore-menu-top" class="highScore__menu__icon"></div>
+        <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
+        <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
+
+        <div class="timer__container hide">
+            <div id="timer" class="timer">
+                3:484
+            </div>
+        </div>
     </header>
 
-    <main id="quiz__card">
-        <h1 class="quiz__title">
-            JavaScript
-            <span class="thin">coding quiz</span>
-        </h1>
+    <main id="quiz-card">
+        <div class="title__container hide">
+            <h1 class="quiz__title">
+                JavaScript
+            </h1>
 
-        <button id="quiz-start-btn">START</button>
+            <h2 class="thin">
+                coding quiz
+            </h2>
+
+            <button id="quiz-start-btn" class="start-btn">START</button>
+        </div>
+
+        <div class="quiz__container hide">
+            <div class="question__container">
+                <div id="question">This is the question I'm asking you?</div>
+            </div>
+
+            <div class="answerButtons__container">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
     </main>
 
 </body>
