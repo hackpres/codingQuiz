@@ -14,6 +14,7 @@ restartBtn.addEventListener("click", startQuiz);
 // quiz screen components need to be pulled from quiz object
 function startQuiz() {
     console.log("Quiz Started");
+    resetState();
     startBtn.classList.add("hide");
     titleContainer.classList.add("hide");
     shuffledQuestions = questions.sort(() => Math.random() - .5);
@@ -43,8 +44,33 @@ function showQuestion(question) {
     })
 }
 
-function selectAnswer() {
+function resetState() {
+    while (answerBtnElements.firstChild) {
+        answerBtnElements.removeChild(answerBtnElements.firstChild);
+    }
+}
 
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const correct = selectedBtn.dataset.correct;
+    setStatusClass(document.body, correct);
+    Array.from(answerBtnElements.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct);
+    });
+}
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add("correct");
+    } else {
+        element.classList.add("wrong");
+    }
+}
+
+function clearStatusClass(element) {
+    element.classList.remove("correct");
+    element.classList.remove("wrong");
 }
 // when all questions are answered, or the timer reaches 0 the quiz ends and the quiz complete screen loads
 
