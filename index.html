@@ -14,13 +14,12 @@
         <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
         <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
 
-        <div id="highScore-text" class="highScore__text hide">High Scores</div>
-        <div id="highScore-bar" class="highScore__bar hide"></div>
+        <div class="highScore__text hide">High Scores</div>
+        <div class="goBack__text hide">&#60&#60 to quiz</div>
+        <div class="highScore__bar hide"></div>
 
         <div class="timer__container hide">
-            <div id="timer" class="timer">
-                3:484
-            </div>
+            <div id="timer" class="timer"></div>
         </div>
     </header>
 
@@ -39,14 +38,14 @@
 
         <div class="quiz__container hide">
             <div class="question__container">
-                <div id="question">This is the question I'm asking you?</div>
+                <div id="question"></div>
             </div>
 
             <div class="answerButtons__container">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
+                <button class="btn"></button>
+                <button class="btn"></button>
+                <button class="btn"></button>
+                <button class="btn"></button>
             </div>
         </div>
 
@@ -55,16 +54,29 @@
                 quiz complete
             </h2>
 
-            <p class="quiz__score">96 out of 100</p>
+            <p class="quiz__score"></p>
 
             <h3 class="quiz__time__header">
                 time:
             </h3>
 
-            <p class="quiz__time">2:57</p>
+            <p class="quiz__time"></p>
 
             <button id="quiz-restart-btn" class="restart__btn">RESTART</button>
+        </div>
 
+        <div class="highScore__scores__container hide">
+            <h2 class="highScore__scores__header">
+                High Scores
+            </h2>
+
+            <ul class="highScore__scores__list">
+                <li id="highScore-top" class="highScore__score"></li>
+                <li id="highScore-2" class="highScore__score"></li>
+                <li id="highScore-3" class="highScore__score"></li>
+                <li id="highScore-4" class="highScore__score"></li>
+                <li id="highScore-5" class="highScore__score"></li>
+            </ul>
         </div>
     </main>
 
