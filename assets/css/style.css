@@ -72,7 +72,7 @@ main {
     align-items: center;
 }
 
-.quiz__title {
+.quiz__title, .quiz__complete__text {
     display: flex;
     justify-content: center;
     margin: 4rem 0 0;
@@ -110,7 +110,7 @@ main {
     align-items: center;
 }
 
-.question__container, .quiz__complete__text, .highScore__scores__header {
+.question__container, .highScore__scores__header {
     margin-top: 4.5rem;
     font-weight: var(--font-weight-thin);
     color: var(--clr-drk);
@@ -163,6 +163,7 @@ input[class="initials"] {
 .answer-btn {
     margin: .25rem auto;
     padding: .25rem 1rem;
+    max-width: 80%;
     background-color: var(--clr-lite);
     color: var(--clr-primary);
     border: .5px solid var(--clr-drk);
