@@ -70,6 +70,7 @@ function renderTimeLeft(timeRemaining) {
         seconds = "0" + seconds;
     var text = `${minutes}:${seconds}`;
     time.innerHTML = text;
+    return text;
 }
 
 let timerInterval = () => {
@@ -86,26 +87,26 @@ let timerInterval = () => {
 function stopTimer(timeRemaining) {
     time.innerHTML = "time is up"
     clearInterval(intervalId);
-    setTimeout(function() {
-        quizContainer.classList.add("hide");
-        completeContainer.classList.remove("hide");
-    }, 1500);
+    quizContainer.classList.add("hide");
+    completeContainer.classList.remove("hide");
     setTimeout(function() {
         timerContainer.classList.add("hide");          
-    }, 5000);
+    }, 3500);
 }
 
 function endQuiz() {
-    
     let finishedBtn = document.createElement("button");
     finishedBtn.classList.add("next__btn");
     finishedBtn.innerHTML = "Finish";
     finishedBtn.addEventListener("click", () => {
         quizContainer.classList.add("hide");
         completeContainer.classList.remove("hide");
+        time.innerHTML = renderTimeLeft(timeLeft);
+        clearInterval(intervalId);
     })
     nextBtn.classList.add("hide");
     quizControlContainer.appendChild(finishedBtn);
+
 }
 
 function nextQuestion() {
