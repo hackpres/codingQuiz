@@ -49,7 +49,9 @@
                 <button id="answer-btn" class="btn"></button>
             </div>
 
-            <button id="quiz-next-btn" class="next__btn hide">NEXT</button>
+            <div id="quiz-controlBtn-container" class="quiz__controlBtn__container">
+                <button id="quiz-next-btn" class="next__btn hide">NEXT</button>
+            </div>
         </div>
 
         <div id="quiz-complete-container" class="quiz__complete__container hide">
@@ -57,13 +59,13 @@
                 quiz complete
             </h2>
 
-            <p class="quiz__score"></p>
+            <p id="quiz-score" class="quiz__score"></p>
 
             <h3 class="quiz__time__header">
                 time:
             </h3>
 
-            <p class="quiz__time"></p>
+            <p id="quiz-time" class="quiz__time"></p>
 
             <label class="initials__label" for="initials">type initials to save your score</label>
             <input class="initials" type="text" id="initials" name="initials">
@@ -71,12 +73,12 @@
             <button id="quiz-restart-btn" class="restart__btn">RESTART</button>
         </div>
 
-        <div class="highScore__scores__container hide">
+        <div id="highScores-container" class="highScore__scores__container hide">
             <h2 class="highScore__scores__header">
                 High Scores
             </h2>
 
-            <ul class="highScore__scores__list">
+            <ul id="highScores-list" class="highScore__scores__list">
                 <li id="highScore-top" class="highScore__score"></li>
                 <li id="highScore-2" class="highScore__score"></li>
                 <li id="highScore-3" class="highScore__score"></li>
