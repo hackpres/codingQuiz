@@ -1,3 +1,26 @@
+//decrement timeLeft on missed question.
+//only allow one answer to be selected for each question.
+//implement points scoring system.
+    //10pts for correct answer.
+    //-5pts for incorrect answer.
+    //15pts for every 10secs left at end of quiz.
+    //1pt for every second under 10 at end of quiz.
+    //-20pts for running out of time.
+//display final score at end of quiz.
+//add functionality to save initials/score to highscore screen.
+//add functionality to highscore "menu" on hover (or click for mobile).
+//add remove hide from highscore screen on highscore click.
+
+    //* Bonus features to add!
+        //* add an animation while calculating final score.
+        //* add difficulty options
+            //easy (more time, low number of questions)
+            //medium (average time, medium number of questions) 
+            //hard (less time, high number of questions)
+        //* add background music
+        //* add audio for correct and wrong selections.
+
+
 //gather variables for the html elements
 const titleContainer = document.getElementById("title-container");
 const quizContainer = document.getElementById("quiz-container");
