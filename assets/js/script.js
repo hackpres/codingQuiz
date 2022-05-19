@@ -1,15 +1,16 @@
-//decrement timeLeft on missed question.
+//()  //decrement timeLeft on missed question.
 //only allow one answer to be selected for each question.
-//implement points scoring system.
-    //10pts for correct answer.
-    //-5pts for incorrect answer.
-    //15pts for every 10secs left at end of quiz.
-    //1pt for every second under 10 at end of quiz.
-    //-20pts for running out of time.
+//()implement points scoring system.
+    //()10pts for correct answer.
+    //()-5pts for incorrect answer.
+    //()15pts for every 10secs left at end of quiz.
+    //()1pt for every second under 10 at end of quiz.
+    //()-20pts for running out of time.
 //display final score at end of quiz.
 //add functionality to save initials/score to highscore screen.
 //add functionality to highscore "menu" on hover (or click for mobile).
 //add remove hide from highscore screen on highscore click.
+//add functionality to restart-btn
 
     //* Bonus features to add!
         //* add an animation while calculating final score.
@@ -47,7 +48,8 @@ const restartBtn = document.getElementById("quiz-restart-btn");
 let shuffledQuestions, currentQuestionIndex, intervalId;
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
 var timeLeft = 15;
-
+var score = 0;
+console.log(`current score is... ${score}`);
 //event listeners
 startBtn.addEventListener("click", startQuiz);
 restartBtn.addEventListener("click", startQuiz);
@@ -99,7 +101,7 @@ function renderTimeLeft(timeRemaining) {
 let timerInterval = () => {
     timerContainer.classList.remove("hide");
     intervalId = setInterval(() => {
-        if (timeLeft == 0) {
+        if (timeLeft <= 0) {
             return stopTimer();
         }
         timeLeft--;
@@ -107,7 +109,7 @@ let timerInterval = () => {
     }, 1000);
 }
 
-function stopTimer(timeRemaining) {
+function stopTimer() {
     time.innerHTML = "time is up"
     clearInterval(intervalId);
     quizContainer.classList.add("hide");
@@ -124,17 +126,31 @@ function endQuiz() {
     finishedBtn.addEventListener("click", () => {
         quizContainer.classList.add("hide");
         completeContainer.classList.remove("hide");
+        quizEndScoreUpdate(timeLeft);
         time.innerHTML = renderTimeLeft(timeLeft);
         clearInterval(intervalId);
     })
     nextBtn.classList.add("hide");
     quizControlContainer.appendChild(finishedBtn);
+    console.log(`current score is... ${score}`);
+
+}
+
+function quizEndScoreUpdate(timeRemaining) {
+    if (timeRemaining > 0) {
+        var addedPoints10secs = Math.floor(timeRemaining / 10);
+        var addedPointsUnder10sec = timeRemaining % 10;
+        addedPoints10secs = addedPoints10secs * 15;
+        addedPointsUnder10sec = addedPointsUnder10sec * 1;
+        score += addedPoints10secs + addedPointsUnder10sec;
+    } else {
+        score -= 20
+    }
+console.log(`current score is... ${score}`);
 
 }
 
 function nextQuestion() {
-    console.log(shuffledQuestions.length);
-    console.log(currentQuestionIndex);
     if (shuffledQuestions.length === currentQuestionIndex + 1) {
         nextBtn.classList.add("hide");
         displayQuestion(shuffledQuestions[currentQuestionIndex]);
@@ -173,10 +189,17 @@ function selectedAnswer(e) {
         if (selectedAnswerBtn.innerText === answer.text) {
             if (answer.correct) {
                 selectedAnswerBtn.classList.add("correct");
+                score += 10
             } else {
+                timeLeft = timeLeft - 10
+                if (timeLeft < 0) {
+                    timeLeft = 0;
+                }
                 selectedAnswerBtn.classList.add("wrong");
+                score -= 5
             }
         }
+        console.log(`current score is... ${score}`);
     })
 }
 
