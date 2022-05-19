@@ -81,6 +81,19 @@ main {
     flex-basis: 100%;
 }
 
+.quiz__score {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    color: var(--clr-lite);
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: var(--clr-drk);
+    font-family: var(--primary-font);
+    font-size: var(--font-size-xlarge);
+    font-weight: var(--font-weight-bold);
+    flex-basis: 100%;
+}
+
 .thin {
     display: flex;
     justify-content: center;
@@ -262,22 +275,12 @@ input[class="initials"] {
     font-weight: var(--font-weight-bold);
 }
 
-.quiz__time__header {
+.quiz__score__header {
     font-weight: var(--font-weight-thin);
     color: var(--clr-drk);
     font-size: var(--font-size-medium);
     text-align: center;
-}
-
-.quiz__score, .quiz__time {
-    display: flex;
-    justify-content: center;
-    margin: -.5rem 0 1rem 0;
-    font-weight: var(--font-weight-bold);
-    color: var(--clr-drk);
-    width: 100%;
-    font-size: var(--font-size-small);
-    flex-basis: 100%;
+    margin: .5rem 0;
 }
 
 /* keep the highScore-bar and highScore-text separate */

@@ -6,11 +6,12 @@
     //()15pts for every 10secs left at end of quiz.
     //()1pt for every second under 10 at end of quiz.
     //()-20pts for running out of time.
-//display final score at end of quiz.
+//()display final score at end of quiz.
 //add functionality to save initials/score to highscore screen.
 //add functionality to highscore "menu" on hover (or click for mobile).
 //add remove hide from highscore screen on highscore click.
 //add functionality to restart-btn
+
 
     //* Bonus features to add!
         //* add an animation while calculating final score.
@@ -37,7 +38,6 @@ const highScoreText = document.getElementsByClassName("highScore__text");
 const goBackText = document.getElementsByClassName("goBack__text");
 const menuBar = document.getElementsByClassName("highScore__bar");
 const printScoreLocation = document.getElementById("quiz-score");
-const printTimeLocation = document.getElementById("quiz-time");
 const highScoresList = document.getElementById("highScores-list");
 const userInitials = document.getElementById("initials");
 const startBtn = document.getElementById("quiz-start-btn");
@@ -47,7 +47,7 @@ const restartBtn = document.getElementById("quiz-restart-btn");
 //variables
 let shuffledQuestions, currentQuestionIndex, intervalId;
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
-var timeLeft = 15;
+var timeLeft = 135;
 var score = 0;
 console.log(`current score is... ${score}`);
 //event listeners
@@ -146,8 +146,8 @@ function quizEndScoreUpdate(timeRemaining) {
     } else {
         score -= 20
     }
-console.log(`current score is... ${score}`);
-
+    console.log(`current score is... ${score}`);
+    printScoreLocation.innerText = score;
 }
 
 function nextQuestion() {
@@ -175,14 +175,22 @@ function displayQuestion(question) {
         btn.innerText = answer.text;
             //styles the answerBtns by adding the class="answer-btn"
         btn.classList.add("answer-btn");
+        btn.setAttribute("id", "true");
             //adds an eventListener on the new buttons that will execute the selectedAnswer function.
         btn.addEventListener("click", (e) => selectedAnswer(e));
             //appends the btns to the answer btn container.
         answerBtnElements.appendChild(btn);
     });
 }
+
+function onlyOnePlease() {
+    document.querySelectorAll('button.answer-btn').forEach(elem => {
+        elem.disabled = true;
+    });
+}
     
 function selectedAnswer(e) {
+    onlyOnePlease();
     let selectedAnswerBtn = e.target;
     shuffledQuestions[currentQuestionIndex].answers.forEach(answer => {
         // console.log(selectedAnswerBtn.innerText, answer.text);
