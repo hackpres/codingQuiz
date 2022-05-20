@@ -6,19 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.typekit.net/trj0jfc.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-    <script defer src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <script defer src="./assets/js/script.js"></script>
     <title>Coding Quiz</title>
 </head>
 <body>
     <header id="highScore-menu">
-        <div id="highScore-menu-top" class="highScore__menu__icon"></div>
-        <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
-        <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
+        <button id="menu-hamburger" class="highScore__hamburger">
+            <div id="highScore-menu-top" class="highScore__menu__icon"></div>
+            <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
+            <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
+        </button>
 
-        <div class="highScore__text hide">High Scores</div>
-        <div class="goBack__text hide">&#60&#60 to quiz</div>
-        <div class="highScore__bar hide"></div>
+        <div id="highScore-text" class="highScore__text hide">High Scores</div>
+        <div id="goBack-text" class="goBack__text hide">&#60&#60 to quiz</div>
+        <div id="menu-bar" class="highScore__bar hide"></div>
+        <div id="menu-bkgrd" class="menu__bkgrd hide">
+            <div id="settings" class="settings">settings</div>
+        </div>
 
         <div id="timer-container" class="timer__container hide">
             <div id="timer" class="timer"></div>
@@ -86,6 +89,6 @@
             </ul>
         </div>
     </main>
-
+    <script defer src="./assets/js/script.js"></script>
 </body>
 </html>

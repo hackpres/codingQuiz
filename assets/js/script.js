@@ -1,14 +1,16 @@
 //()  //decrement timeLeft on missed question.
-//only allow one answer to be selected for each question.
+//()only allow one answer to be selected for each question.
 //()implement points scoring system.
     //()10pts for correct answer.
     //()-5pts for incorrect answer.
     //()15pts for every 10secs left at end of quiz.
     //()1pt for every second under 10 at end of quiz.
     //()-20pts for running out of time.
+    //-20pts for skipped questions
 //()display final score at end of quiz.
 //add functionality to save initials/score to highscore screen.
-//add functionality to highscore "menu" on hover (or click for mobile).
+//add functionality to highscore "menu" on hover 
+    //()click for mobile.
 //add remove hide from highscore screen on highscore click.
 //add functionality to restart-btn
 
@@ -33,10 +35,11 @@ const timerContainer = document.getElementById("timer-container");
 const time = document.getElementById("timer");
 const completeContainer = document.getElementById("quiz-complete-container");
 const highScoresContainer = document.getElementById("highScores-container");
-const highScoreHamburger = document.getElementsByClassName("highScore__menu__icon");
-const highScoreText = document.getElementsByClassName("highScore__text");
-const goBackText = document.getElementsByClassName("goBack__text");
-const menuBar = document.getElementsByClassName("highScore__bar");
+const menuHamburgerBtn = document.getElementById("menu-hamburger");
+const highScoreText = document.getElementById("highScore-text");
+const goBackText = document.getElementById("goBack-text");
+const menuBar = document.getElementById("menu-bar");
+const menuList = document.getElementById("menu-bkgrd");
 const printScoreLocation = document.getElementById("quiz-score");
 const highScoresList = document.getElementById("highScores-list");
 const userInitials = document.getElementById("initials");
@@ -46,20 +49,51 @@ const restartBtn = document.getElementById("quiz-restart-btn");
 
 //variables
 let shuffledQuestions, currentQuestionIndex, intervalId;
+
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
 var timeLeft = 135;
 var score = 0;
-console.log(`current score is... ${score}`);
+
 //event listeners
 startBtn.addEventListener("click", startQuiz);
-restartBtn.addEventListener("click", startQuiz);
+restartBtn.addEventListener("click", restartQuiz);
 nextBtn.addEventListener("click", () => {
     currentQuestionIndex++;
     nextQuestion();
 });
+menuHamburgerBtn.addEventListener("click", () => {
+    openMenu();
+});
 
 //start quiz
+function openMenu() {
+    menuBar.classList.remove("hide");
+    highScoreText.classList.remove("hide");
+    menuList.classList.remove("hide");
+    menuBar.addEventListener("click", () => {
+        closeMenu()
+    });
+    highScoreText.addEventListener("click", () => {
+        closeMenu()
+    });
+}
+
+function closeMenu() {
+    menuBar.classList.add("hide");
+    highScoreText.classList.add("hide");
+    menuList.classList.add("hide");
+}
+
+function restartQuiz() {
+    timeLeft = 135;
+    score = 0
+    completeContainer.classList.add("hide");
+    quizControlContainer.removeChild(finishedBtn);
+    startQuiz();
+}
+
 function startQuiz() { 
+    restartBtn.classList.add("hide");
         //executes the resetAnswerBtns function (to clear any btns before loading the next question)
     resetAnswerBtns();
 
@@ -132,7 +166,6 @@ function endQuiz() {
     })
     nextBtn.classList.add("hide");
     quizControlContainer.appendChild(finishedBtn);
-    console.log(`current score is... ${score}`);
 
 }
 
@@ -148,6 +181,7 @@ function quizEndScoreUpdate(timeRemaining) {
     }
     console.log(`current score is... ${score}`);
     printScoreLocation.innerText = score;
+    restartBtn.classList.remove("hide");
 }
 
 function nextQuestion() {
@@ -175,7 +209,6 @@ function displayQuestion(question) {
         btn.innerText = answer.text;
             //styles the answerBtns by adding the class="answer-btn"
         btn.classList.add("answer-btn");
-        btn.setAttribute("id", "true");
             //adds an eventListener on the new buttons that will execute the selectedAnswer function.
         btn.addEventListener("click", (e) => selectedAnswer(e));
             //appends the btns to the answer btn container.
@@ -207,7 +240,6 @@ function selectedAnswer(e) {
                 score -= 5
             }
         }
-        console.log(`current score is... ${score}`);
     })
 }
 
