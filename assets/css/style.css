@@ -40,9 +40,22 @@ body {
     padding: 0;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
+h5 {
+    display: flex;
+    justify-content: center;
+    /* margin: auto; */
+    color: var(--clr-primary);
+    font-size: var(--font-size-small);
+    width: 40%;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    color: var(--clr-primary);
+    font-size: var(--font-size-small);
+    width: 40%;
 }
 
 #highScore-menu {
@@ -290,11 +303,10 @@ input[class="initials"] {
 }
 
 .highScore__scores__list {
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 .highScore__score {
@@ -319,6 +331,11 @@ input[class="initials"] {
     font-size: var(--font-size-medium);
     text-align: center;
     margin: .5rem 0;
+}
+
+.user__container {
+    display: flex;
+    width: 100%;
 }
 
 /* keep the highScore-bar and highScore-text separate */

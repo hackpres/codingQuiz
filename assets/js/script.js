@@ -6,7 +6,6 @@
     //()15pts for every 10secs left at end of quiz.
     //()1pt for every second under 10 at end of quiz.
     //()-20pts for running out of time.
-    //-20pts for skipped questions
 //()display final score at end of quiz.
 //add functionality to save initials/score to highscore screen.
 //add functionality to highscore "menu" on hover 
@@ -60,6 +59,17 @@ restartBtn.addEventListener("click", restartQuiz);
 menuHamburgerBtn.addEventListener("click", () => {
     openMenu();
 });
+userInitials.addEventListener("change", () => {
+    let inputForInitials = userInitials.value;
+    let userObject = {userName: inputForInitials, userScore: score};
+    highScoreSave(userObject);
+})
+
+
+
+function generateUserId() {
+    return Math.floor(Math.random() * 1000);
+}
 
 //start quiz
 function openMenu() {
@@ -178,8 +188,31 @@ function quizEndScoreUpdate(timeRemaining) {
 //also add it to the highScore list, in the order it belongs, moving all others accordingly
 
 
-function highScoreStorage() {
+function highScoreSave(userObject) {
+    localStorage.setItem(`user${generateUserId()}`, JSON.stringify(userObject));
+    getUserStorage()
+}
 
+
+function getUserStorage() {
+    let storage = Object.keys(localStorage).map(user => {
+        let retrievedUser = localStorage.getItem(user);
+        return JSON.parse(retrievedUser)
+    });
+    
+    storage.sort((a, b) => b.userScore - a.userScore).slice(0, 5).forEach((userObject) => {
+            var userContainer = document.createElement('div');
+            userContainer.classList.add("user__container")
+            var usersName = document.createElement('h5');
+            usersName.innerText = userObject.userName;
+            var usersScore = document.createElement('p');
+            usersScore.innerText = userObject.userScore;
+
+            userContainer.appendChild(usersName);
+            userContainer.appendChild(usersScore);
+
+            highScoresList.appendChild(userContainer);
+        });
 }
 
 function nextQuestion() {
