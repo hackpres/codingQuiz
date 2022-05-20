@@ -258,7 +258,7 @@ input[class="initials"] {
 }
 
 .menu__bkgrd {
-    height: 3.5rem;
+    height: 6.25rem;
     z-index: 2;
     margin: -.5rem 0 0;
     width: 52vw;
@@ -267,14 +267,22 @@ input[class="initials"] {
     border-radius: 0 0 .75rem 0;
     justify-content: center;
     text-align: center;
+    overflow: hidden;
 }
 
 #settings {
     color: var(--clr-lite);
     font-size: var(--font-size-small);
     font-weight: var(--font-weight-thin);
-    padding-top: .75rem;
-    /* margin: 2rem 0 0 2.5rem; */
+    margin-top: .5rem;
+    margin-bottom: .35rem;
+}
+
+.settings__item {
+    color: var(--clr-lite);
+    font-size: var(--font-size-xsmall);
+    font-weight: var(--font-weight-thin);
+    margin: 0 0 0 2rem;
 }
 
 .highScore__scores__header {

@@ -20,7 +20,18 @@
         <div id="goBack-text" class="goBack__text hide">&#60&#60 to quiz</div>
         <div id="menu-bar" class="highScore__bar hide"></div>
         <div id="menu-bkgrd" class="menu__bkgrd hide">
-            <div id="settings" class="settings">settings</div>
+            <div id="settings-container" class="settings__container">
+                <h3 id="settings" class="settings__header">
+                    settings
+                </h3>
+
+                <h4 id="difficulty" class="settings__item">
+                    &#3866 difficulty
+                </h4>
+                <h4 id="audio" class="settings__item">
+                    &#3866 audio
+                </h4>
+            </div>
         </div>
 
         <div id="timer-container" class="timer__container hide">
@@ -52,10 +63,6 @@
                 <button id="answer-btn" class="btn"></button>
                 <button id="answer-btn" class="btn"></button>
             </div>
-
-            <div id="quiz-controlBtn-container" class="quiz__controlBtn__container">
-                <button id="quiz-next-btn" class="next__btn hide">NEXT</button>
-            </div>
         </div>
 
         <div id="quiz-complete-container" class="quiz__complete__container hide">
@@ -72,7 +79,9 @@
             <label class="initials__label" for="initials">type initials to save your score</label>
             <input class="initials" type="text" id="initials" name="initials">
 
-            <button id="quiz-restart-btn" class="restart__btn">RESTART</button>
+            <div id="quiz-controlBtn-container" class="quiz__controlBtn__container">
+            <button id="quiz-restart-btn" class="restart__btn hide">RESTART</button>
+            </div>
         </div>
 
         <div id="highScores-container" class="highScore__scores__container hide">

@@ -57,10 +57,6 @@ var score = 0;
 //event listeners
 startBtn.addEventListener("click", startQuiz);
 restartBtn.addEventListener("click", restartQuiz);
-nextBtn.addEventListener("click", () => {
-    currentQuestionIndex++;
-    nextQuestion();
-});
 menuHamburgerBtn.addEventListener("click", () => {
     openMenu();
 });
@@ -88,12 +84,10 @@ function restartQuiz() {
     timeLeft = 135;
     score = 0
     completeContainer.classList.add("hide");
-    quizControlContainer.removeChild(finishedBtn);
     startQuiz();
 }
 
 function startQuiz() { 
-    restartBtn.classList.add("hide");
         //executes the resetAnswerBtns function (to clear any btns before loading the next question)
     resetAnswerBtns();
 
@@ -154,19 +148,14 @@ function stopTimer() {
 }
 
 function endQuiz() {
-    let finishedBtn = document.createElement("button");
-    finishedBtn.classList.add("next__btn");
-    finishedBtn.innerHTML = "Finish";
-    finishedBtn.addEventListener("click", () => {
+    setTimeout(function() {
         quizContainer.classList.add("hide");
         completeContainer.classList.remove("hide");
         quizEndScoreUpdate(timeLeft);
         time.innerHTML = renderTimeLeft(timeLeft);
         clearInterval(intervalId);
-    })
-    nextBtn.classList.add("hide");
-    quizControlContainer.appendChild(finishedBtn);
-
+        restartBtn.classList.remove("hide");
+    }, 650);
 }
 
 function quizEndScoreUpdate(timeRemaining) {
@@ -181,25 +170,27 @@ function quizEndScoreUpdate(timeRemaining) {
     }
     console.log(`current score is... ${score}`);
     printScoreLocation.innerText = score;
-    restartBtn.classList.remove("hide");
+}
+
+
+//check if current user score is higher than any currently saved highScore (5 total scores to be saved)
+//if current score is higher then add it to local storage
+//also add it to the highScore list, in the order it belongs, moving all others accordingly
+
+
+function highScoreStorage() {
+
 }
 
 function nextQuestion() {
-    if (shuffledQuestions.length === currentQuestionIndex + 1) {
-        nextBtn.classList.add("hide");
-        displayQuestion(shuffledQuestions[currentQuestionIndex]);
-        endQuiz();
-    } else {
-        //executes the displayQuestion function for the shuffledQuestions at the index position of the currentQuestionIndex
+   //executes the displayQuestion function for the shuffledQuestions at the index position of the currentQuestionIndex
     displayQuestion(shuffledQuestions[currentQuestionIndex]);
-    }
 }
 
 function displayQuestion(question) {
     //sets the inner text for the question to the value of question in the questions object at the currentQuestionIndex
     questionElement.innerText = question.question;
     resetAnswerBtns();
-    nextBtn.classList.remove("hide");
     var shuffledAnswers = question.answers.sort(() => Math.random() - .5)
     //recreates the answerBtns for each answer in the questions object at the currentQuestionIndex
     shuffledAnswers.forEach(answer => {
@@ -240,7 +231,17 @@ function selectedAnswer(e) {
                 score -= 5
             }
         }
-    })
+    });
+    currentQuestionIndex++;
+    if (shuffledQuestions.length < currentQuestionIndex + 1) {
+        setTimeout(function() {
+        endQuiz();
+        })
+    } else {
+        setTimeout(function() {
+        nextQuestion();
+    }, 650);}
+    
 }
 
 let questions = [
