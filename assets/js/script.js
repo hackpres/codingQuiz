@@ -24,6 +24,14 @@
         //* add background music
         //* add audio for correct and wrong selections
 
+        // document.getElementById("highScore-menu").addEventListener("click", closeMenu());
+        // document.getElementById("quiz-card").addEventListener("click", closeMenu());
+        // document.getElementById("quiz-title").addEventListener("click", closeMenu());
+        // document.getElementById("quiz-subtitle").addEventListener("click", closeMenu());
+        // startBtn.addEventListener("click", closeMenu());
+        // titleContainer.addEventListener("click", closeMenu());
+        // menuBar.addEventListener("click",() => {closeMenu()});
+        // document.getElementById("html").addEventListener('click', closeMenu());
 
 //gather variables for the html elements
 const titleContainer = document.getElementById("title-container");
@@ -101,8 +109,10 @@ function openMenu() {
     menuBar.classList.remove("hide");
     highScoreText.classList.remove("hide");
     menuList.classList.remove("hide");
-    menuBar.addEventListener("click", () => {
-        closeMenu()
+    window.addEventListener("mouseup", (e) => {
+        if (e.target != highScoreText && e.target.parentNode != highScoreText) {
+            closeMenu();
+        }
     });
     highScoreText.addEventListener("click", () => {
         hideAll()
@@ -114,6 +124,7 @@ function openMenu() {
         timeLeft = 135;
         score = 0;
     });
+    
 }
 
 function hideAll() {
@@ -131,6 +142,9 @@ function hideAll() {
     menuList.classList.add("hide");
     startBtn.classList.add("hide");
     restartBtn.classList.add("hide");
+    while (highScoresList.firstChild) {
+        highScoresList.removeChild(highScoresList.firstChild);
+    }
 }
 
 function closeMenu() {
