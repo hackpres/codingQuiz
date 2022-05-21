@@ -43,7 +43,7 @@ body {
 h5 {
     display: flex;
     justify-content: center;
-    /* margin: auto; */
+    margin: auto;
     color: var(--clr-primary);
     font-size: var(--font-size-small);
     width: 40%;
@@ -335,6 +335,7 @@ input[class="initials"] {
 
 .user__container {
     display: flex;
+    margin: 0;
     width: 100%;
 }
 

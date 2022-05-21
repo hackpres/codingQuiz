@@ -1,4 +1,4 @@
-//()  //decrement timeLeft on missed question.
+//()  //()decrement timeLeft on missed question.
 //()only allow one answer to be selected for each question.
 //()implement points scoring system.
     //()10pts for correct answer.
@@ -7,21 +7,21 @@
     //()1pt for every second under 10 at end of quiz.
     //()-20pts for running out of time.
 //()display final score at end of quiz.
-//add functionality to save initials/score to highscore screen.
+//()add functionality to save initials/score to highscore screen.
 //add functionality to highscore "menu" on hover 
     //()click for mobile.
-//add remove hide from highscore screen on highscore click.
-//add functionality to restart-btn
+//()add remove hide from highscore screen on highscore click.
+//()add functionality to restart-btn
 
 
     //* Bonus features to add!
         //* add an animation while calculating final score.
         //* add difficulty options
             //easy (more time, low number of questions)
-            //medium (average time, medium number of questions) 
+            //medium (average time, medium number of questions)
             //hard (less time, high number of questions)
         //* add background music
-        //* add audio for correct and wrong selections.
+        //* add audio for correct and wrong selections
 
 
 //gather variables for the html elements
@@ -43,7 +43,6 @@ const printScoreLocation = document.getElementById("quiz-score");
 const highScoresList = document.getElementById("highScores-list");
 const userInitials = document.getElementById("initials");
 const startBtn = document.getElementById("quiz-start-btn");
-const nextBtn = document.getElementById("quiz-next-btn");
 const restartBtn = document.getElementById("quiz-restart-btn");
 
 //variables
@@ -63,9 +62,7 @@ userInitials.addEventListener("change", () => {
     let inputForInitials = userInitials.value;
     let userObject = {userName: inputForInitials, userScore: score};
     highScoreSave(userObject);
-})
-
-
+});
 
 function generateUserId() {
     return Math.floor(Math.random() * 1000);
@@ -80,8 +77,26 @@ function openMenu() {
         closeMenu()
     });
     highScoreText.addEventListener("click", () => {
-        closeMenu()
+        hideAll()
+        highScoresContainer.classList.remove("hide");
     });
+}
+
+function hideAll() {
+    titleContainer.classList.add("hide");
+    quizContainer.classList.add("hide");
+    answerBtnElements.classList.add("hide");
+    quizControlContainer.classList.add("hide");
+    timerContainer.classList.add("hide");
+    completeContainer.classList.add("hide");
+    highScoresContainer.classList.add("hide");
+    menuHamburgerBtn.classList.add("hide");
+    highScoreText.classList.add("hide");
+    goBackText.classList.add("hide");
+    menuBar.classList.add("hide");
+    menuList.classList.add("hide");
+    startBtn.classList.add("hide");
+    restartBtn.classList.add("hide");
 }
 
 function closeMenu() {
@@ -202,7 +217,7 @@ function getUserStorage() {
     
     storage.sort((a, b) => b.userScore - a.userScore).slice(0, 5).forEach((userObject) => {
             var userContainer = document.createElement('div');
-            userContainer.classList.add("user__container")
+            userContainer.classList.add("user__container");
             var usersName = document.createElement('h5');
             usersName.innerText = userObject.userName;
             var usersScore = document.createElement('p');
