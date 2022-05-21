@@ -12,6 +12,7 @@
     //()click for mobile.
 //()add remove hide from highscore screen on highscore click.
 //()add functionality to restart-btn
+//clear input field on change
 
 
     //* Bonus features to add!
@@ -47,7 +48,7 @@ const restartBtn = document.getElementById("quiz-restart-btn");
 
 //variables
 let shuffledQuestions, currentQuestionIndex, intervalId;
-
+console.log(shuffledQuestions);
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
 var timeLeft = 135;
 var score = 0;
@@ -62,13 +63,40 @@ userInitials.addEventListener("change", () => {
     let inputForInitials = userInitials.value;
     let userObject = {userName: inputForInitials, userScore: score};
     highScoreSave(userObject);
+    userInitials.value = ""
+    userInitials.classList.add("hide");
+    document.getElementById("initials-label").classList.add('hide');
+    menuBar.classList.remove("hide");
+    highScoreText.classList.remove("hide");
+    highScoreText.addEventListener("click", () => {
+        hideAll()
+        highScoresContainer.classList.remove("hide");
+        menuBar.classList.remove("hide");
+        goBackText.classList.remove("hide");
+        getUserStorage();
+        clearInterval(intervalId);
+        timeLeft = 135;
+        score = 0;
+    });
+});
+goBackText.addEventListener("click", () => {
+    hideAll();
+    titleContainer.classList.remove("hide");
+    menuHamburgerBtn.classList.remove("hide");
+    startBtn.classList.remove("hide");
+    shuffledQuestions = undefined;
+    currentQuestionIndex = undefined;
+    intervalId = undefined;
+    answerBtnElements.classList.remove("hide");
+    while (highScoresList.firstChild) {
+        highScoresList.removeChild(highScoresList.firstChild);
+    }
 });
 
 function generateUserId() {
     return Math.floor(Math.random() * 1000);
 }
 
-//start quiz
 function openMenu() {
     menuBar.classList.remove("hide");
     highScoreText.classList.remove("hide");
@@ -79,6 +107,12 @@ function openMenu() {
     highScoreText.addEventListener("click", () => {
         hideAll()
         highScoresContainer.classList.remove("hide");
+        menuBar.classList.remove("hide");
+        goBackText.classList.remove("hide");
+        getUserStorage();
+        clearInterval(intervalId);
+        timeLeft = 135;
+        score = 0;
     });
 }
 
@@ -197,12 +231,6 @@ function quizEndScoreUpdate(timeRemaining) {
     printScoreLocation.innerText = score;
 }
 
-
-//check if current user score is higher than any currently saved highScore (5 total scores to be saved)
-//if current score is higher then add it to local storage
-//also add it to the highScore list, in the order it belongs, moving all others accordingly
-
-
 function highScoreSave(userObject) {
     localStorage.setItem(`user${generateUserId()}`, JSON.stringify(userObject));
     getUserStorage()
@@ -216,18 +244,18 @@ function getUserStorage() {
     });
     
     storage.sort((a, b) => b.userScore - a.userScore).slice(0, 5).forEach((userObject) => {
-            var userContainer = document.createElement('div');
-            userContainer.classList.add("user__container");
-            var usersName = document.createElement('h5');
-            usersName.innerText = userObject.userName;
-            var usersScore = document.createElement('p');
-            usersScore.innerText = userObject.userScore;
+        var userContainer = document.createElement('div');
+        userContainer.classList.add("user__container");
+        var usersName = document.createElement('h5');
+        usersName.innerText = userObject.userName;
+        var usersScore = document.createElement('p');
+        usersScore.innerText = userObject.userScore;
 
-            userContainer.appendChild(usersName);
-            userContainer.appendChild(usersScore);
+        userContainer.appendChild(usersName);
+        userContainer.appendChild(usersScore);
 
-            highScoresList.appendChild(userContainer);
-        });
+        highScoresList.appendChild(userContainer);
+    });
 }
 
 function nextQuestion() {
