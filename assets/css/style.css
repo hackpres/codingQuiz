@@ -17,11 +17,11 @@
     --font-weight-thin: 300;
     --font-weight-bold: 700;
 
-    --font-size-xlarge: 3.25rem;
+    --font-size-xlarge: 3.15rem;
     --font-size-large: 2.8rem;
     --font-size-medium: 2.3rem;
     --font-size-small: 1.75rem;
-    --font-size-xsmall: 1.25rem;
+    --font-size-xsmall: 1.15rem;
 }
 
 html {
@@ -38,6 +38,17 @@ html {
 body {
     margin: 0;
     padding: 0;
+}
+
+.highest__score {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+    color: var(--clr-lite);
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: var(--clr-primary);
+    font-size: var(--font-size-large);
+    width: 40%;
 }
 
 h5 {
@@ -75,6 +86,72 @@ p {
 
 #highScore-menu-top {
     margin-top: 1em;
+}
+
+.toggle {
+    display: flex;
+    width: 30px;
+    height: 15px;
+    border-radius: 8px;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.toggle__input {
+    display: none;
+}
+
+.toggle__fill {
+    display: flex;
+    position: relative;
+    width: 30px;
+    height: 15px;
+    border-radius: 8px;
+    background: var(--clr-lite);
+    transition: background 0.4s;
+    opacity: .8;
+}
+
+.toggle__input:checked ~ .toggle__fill {
+    background: var(--clr-drk);
+}
+
+.toggle__fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background: #ffffff;
+    box-shadow: 0 0 10px var(--clr-primary);
+    border-radius: 8px;
+    transition: transform 0.4s;
+}
+
+.toggle__input:checked ~ .toggle__fill::after {
+    transform: translateX(15px);
+}
+
+.settings__icons {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+}
+
+#settings-audioOn-icon, #settings-audioOff-icon {
+    position: absolute;
+    top: -1.75rem;
+    left: 28vw;
+    opacity: .7;
+}
+#settings-difficultyEasy-icon, #settings-difficultyHard-icon {
+    position: absolute;
+    top: -1.75rem;
+    left: 35vw;
+    font-size: .85rem;
+    opacity: .7;
 }
 
 main {
@@ -233,7 +310,7 @@ input[class="initials"] {
     color: var(--clr-lite);
     -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: var(--clr-primary);
-    padding: 1.5rem 1.5rem 0 0 ;
+    padding: 1rem 1rem 0 0 ;
     opacity: .8;
 }
 
@@ -274,12 +351,12 @@ input[class="initials"] {
     height: 6.25rem;
     z-index: 2;
     margin: -.5rem 0 0;
+    padding-left: 1rem;
     width: 52vw;
     background-color: var(--clr-primary);
     opacity: .7;
     border-radius: 0 0 .75rem 0;
     justify-content: center;
-    text-align: center;
     overflow: hidden;
 }
 
@@ -292,10 +369,12 @@ input[class="initials"] {
 }
 
 .settings__item {
+    display: inline-flex;
+    align-items: center;
     color: var(--clr-lite);
     font-size: var(--font-size-xsmall);
     font-weight: var(--font-weight-thin);
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 .25rem;
 }
 
 .highScore__scores__header {
@@ -305,8 +384,6 @@ input[class="initials"] {
 .highScore__scores__list {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .highScore__score {

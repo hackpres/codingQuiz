@@ -1,3 +1,5 @@
+// "Music: www.bensound.com" or "Royalty Free Music from Bensound"
+
 //()  //()decrement timeLeft on missed question.
 //()only allow one answer to be selected for each question.
 //()implement points scoring system.
@@ -12,27 +14,19 @@
     //()click for mobile.
 //()add remove hide from highscore screen on highscore click.
 //()add functionality to restart-btn
-//clear input field on change
+//()clear input field on change
+//()limit user initials to 3chars
 
 
     //* Bonus features to add!
         //* add an animation while calculating final score.
-        //* add difficulty options
-            //easy (more time, low number of questions)
-            //medium (average time, medium number of questions)
-            //hard (less time, high number of questions)
+        //()* add difficulty options
+            //()easy (more time per question, 10 questions)
+            //()hard (less time per question, 20 questions)
         //* add background music
-        //* add audio for correct and wrong selections
+        //()* add audio for correct and wrong selections
 
-        // document.getElementById("highScore-menu").addEventListener("click", closeMenu());
-        // document.getElementById("quiz-card").addEventListener("click", closeMenu());
-        // document.getElementById("quiz-title").addEventListener("click", closeMenu());
-        // document.getElementById("quiz-subtitle").addEventListener("click", closeMenu());
-        // startBtn.addEventListener("click", closeMenu());
-        // titleContainer.addEventListener("click", closeMenu());
-        // menuBar.addEventListener("click",() => {closeMenu()});
-        // document.getElementById("html").addEventListener('click', closeMenu());
-
+        
 //gather variables for the html elements
 const titleContainer = document.getElementById("title-container");
 const quizContainer = document.getElementById("quiz-container");
@@ -48,17 +42,26 @@ const highScoreText = document.getElementById("highScore-text");
 const goBackText = document.getElementById("goBack-text");
 const menuBar = document.getElementById("menu-bar");
 const menuList = document.getElementById("menu-bkgrd");
+const difficultyToggle = document.getElementById("difficulty");
+const audioToggle = document.getElementById("audio");
 const printScoreLocation = document.getElementById("quiz-score");
 const highScoresList = document.getElementById("highScores-list");
 const userInitials = document.getElementById("initials");
 const startBtn = document.getElementById("quiz-start-btn");
 const restartBtn = document.getElementById("quiz-restart-btn");
 
+const audioCorrect = new Audio();
+const audioWrong = new Audio();
+
+
+audioCorrect.src = "./assets/audio/correctSF.wav";
+audioWrong.src = "./assets/audio/wrongSF.wav";
+
+
 //variables
 let shuffledQuestions, currentQuestionIndex, intervalId;
-console.log(shuffledQuestions);
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
-var timeLeft = 135;
+var timeLeft = 75;
 var score = 0;
 
 //event listeners
@@ -83,7 +86,7 @@ userInitials.addEventListener("change", () => {
         goBackText.classList.remove("hide");
         getUserStorage();
         clearInterval(intervalId);
-        timeLeft = 135;
+        timeLeftDifficultyCheck();
         score = 0;
     });
 });
@@ -100,31 +103,112 @@ goBackText.addEventListener("click", () => {
         highScoresList.removeChild(highScoresList.firstChild);
     }
 });
+difficultyToggle.addEventListener("change", () => {
+    if (difficultyToggle.checked === true) {
+        easyMode();
+        difficultyToggle.checked = false
+    } else {
+        hardMode();
+        difficultyToggle.checked = true
+
+    }
+})
+audioToggle.addEventListener("change", () => {
+    if (audioToggle.checked === true) {
+        audioOn();
+        audioToggle.checked = false
+    } else {
+        audioff();
+        audioToggle.checked = true
+
+    }
+})
+
+function audioOn() {
+    audioCorrect.src = "./assets/audio/correctSF.wav";
+    audioWrong.src = "./assets/audio/wrongSF.wav";
+    document.getElementById("settings-audioOn-icon").classList.remove("hide");
+    document.getElementById("settings-audioOff-icon").classList.add("hide");
+    document.getElementById("audioh4").innerText = "audio on";
+}
+
+function audioff() {
+    audioCorrect.src = "";
+    audioWrong.src = "";
+    document.getElementById("settings-audioOn-icon").classList.add("hide");
+    document.getElementById("settings-audioOff-icon").classList.remove("hide");
+    document.getElementById("audioh4").innerText = "audio off";
+}
+
+function easyMode() {
+    questions = questions.slice(0, 10);
+    console.log(questions);
+    document.getElementById("settings-difficultyEasy-icon").classList.remove("hide");
+    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
+    document.getElementById("difficultyh4").innerText = "easy difficulty";
+    clearInterval(intervalId);
+    restartQuiz();
+}
+
+function hardMode() {
+    questions = questions.concat(questionsHard);
+    console.log(questions);
+    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
+    document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+    document.getElementById("difficultyh4").innerText = "hard difficulty";
+    clearInterval(intervalId);
+    restartQuiz();
+}
+
+function timeLeftDifficultyCheck() {
+    if (difficultyToggle.checked === true) {
+        timeLeft = 110;
+    } else {
+        timeLeft = 75;
+    }
+}
 
 function generateUserId() {
-    return Math.floor(Math.random() * 1000);
+        //Date.now() returns date and time in miliseconds
+        //.toString(36) returns the source code function to the 36th position as a string
+            //adds above and below
+        //Math.random() returns a random number between 0-1 but never 1
+        //.toString(36) returns math.random() the the 36th number as a string
+        //.substring(2)  returns the string of 36 math.random numbers starting from index position 2 to the end of the string
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+    
 }
 
 function openMenu() {
     menuBar.classList.remove("hide");
     highScoreText.classList.remove("hide");
     menuList.classList.remove("hide");
+    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
+    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
+    document.getElementById("settings-audioOn-icon").classList.add("hide");
+    document.getElementById("settings-audioOff-icon").classList.add("hide");
     window.addEventListener("mouseup", (e) => {
-        if (e.target != highScoreText && e.target.parentNode != highScoreText) {
+        if (e.target !== highScoreText && e.target !== difficultyToggle && e.target !== audioToggle) {
             closeMenu();
+            restartQuiz();
         }
     });
     highScoreText.addEventListener("click", () => {
-        hideAll()
+        console.log("high score clicked");
+        hideAll();
         highScoresContainer.classList.remove("hide");
         menuBar.classList.remove("hide");
         goBackText.classList.remove("hide");
+        if (difficultyToggle.checked === true) {
+            document.getElementById("settings-difficultyHard-icon").classList.add("hide");
+        } else {
+            document.getElementById("settings-difficultyEasy-icon").classList.add("hide"); 
+        }
         getUserStorage();
         clearInterval(intervalId);
-        timeLeft = 135;
+        timeLeftDifficultyCheck();
         score = 0;
     });
-    
 }
 
 function hideAll() {
@@ -142,6 +226,10 @@ function hideAll() {
     menuList.classList.add("hide");
     startBtn.classList.add("hide");
     restartBtn.classList.add("hide");
+    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
+    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
+    document.getElementById("settings-audioOn-icon").classList.add("hide");
+    document.getElementById("settings-audioOff-icon").classList.add("hide");
     while (highScoresList.firstChild) {
         highScoresList.removeChild(highScoresList.firstChild);
     }
@@ -154,10 +242,17 @@ function closeMenu() {
 }
 
 function restartQuiz() {
-    timeLeft = 135;
+    timeLeftDifficultyCheck();
     score = 0
-    completeContainer.classList.add("hide");
-    startQuiz();
+    hideAll();
+    titleContainer.classList.remove("hide");
+    startBtn.classList.remove("hide");
+    menuHamburgerBtn.classList.remove("hide");
+    if (difficultyToggle.checked === true) {
+        document.getElementById("settings-difficultyEasy-icon").classList.remove("hide");
+    } else {
+        document.getElementById("settings-difficultyHard-icon").classList.remove("hide"); 
+    }
 }
 
 function startQuiz() { 
@@ -179,6 +274,8 @@ function startQuiz() {
     currentQuestionIndex = 0;
         //executes the nextQuestion function to load the next question automatically
     nextQuestion();
+    userInitials.classList.remove("hide");
+    document.getElementById("initials-label").classList.remove('hide');
 }
 
 function resetAnswerBtns() {
@@ -241,6 +338,7 @@ function quizEndScoreUpdate(timeRemaining) {
     } else {
         score -= 20
     }
+
     console.log(`current score is... ${score}`);
     printScoreLocation.innerText = score;
 }
@@ -264,6 +362,10 @@ function getUserStorage() {
         usersName.innerText = userObject.userName;
         var usersScore = document.createElement('p');
         usersScore.innerText = userObject.userScore;
+        if (!highScoresList.firstChild) {
+            usersName.classList.add("highest__score");
+            usersScore.classList.add("highest__score");
+        }
 
         userContainer.appendChild(usersName);
         userContainer.appendChild(usersScore);
@@ -307,18 +409,19 @@ function selectedAnswer(e) {
     onlyOnePlease();
     let selectedAnswerBtn = e.target;
     shuffledQuestions[currentQuestionIndex].answers.forEach(answer => {
-        // console.log(selectedAnswerBtn.innerText, answer.text);
         if (selectedAnswerBtn.innerText === answer.text) {
             if (answer.correct) {
                 selectedAnswerBtn.classList.add("correct");
-                score += 10
+                score += 10;
+                audioCorrect.play();
             } else {
                 timeLeft = timeLeft - 10
                 if (timeLeft < 0) {
                     timeLeft = 0;
                 }
                 selectedAnswerBtn.classList.add("wrong");
-                score -= 5
+                score -= 5;
+                audioWrong.play();
             }
         }
     });
@@ -338,10 +441,10 @@ let questions = [
     {
         question: "Which is not an array method?",
         answers: [
+            {text: "length()", correct: true},
             {text: "forEach()", correct: false},
             {text: "concat()", correct: false},
             {text: "lastIndexOf()", correct: false},
-            {text: "length()", correct: true}
         ]
     },
     {
@@ -350,19 +453,171 @@ let questions = [
             {text: "a number between 0 and 1", correct: true},
             {text: "a number rounded down", correct: false},
             {text: "a number between 1 - 10", correct: false},
-            {text: "a boolean", correct: false},
+            {text: "a boolean", correct: false}
         ]
     },
     {
         question: "What does isNaN() do?",
         answers: [
+            {text: "determines whether a value is an illegal number", correct: true},
             {text: "parses a string and returns an integer", correct: false},
             {text: "converts an object's value to a number", correct: false},
-            {text: "determines whether a value is an illegal number", correct: true},
-            {text: "returns the primitive value of a boolean", correct: false},
+            {text: "returns the primitive value of a boolean", correct: false}
+        ]
+    },
+    {
+        question: "Math.floor...",
+        answers: [
+            {text: "rounds down to the nearest integer", correct: true},
+            {text: "returns a random number between 0 and 1", correct: false},
+            {text: "resets the current value to 0", correct: false},
+            {text: "returns the absolute value of a number", correct: false}
+        ]
+    },
+    {
+        question: "To convert a number to a string use?",
+        answers: [
+            {text: "num.toString()", correct: true},
+            {text: ".toString(num)", correct: false},
+            {text: ".toDateString()", correct: false},
+            {text: ".toString()", correct: false}
+        ]
+    },
+    {
+        question: "The symbol for a Modulus is?",
+        answers: [
+            {text: "%", correct: true},
+            {text: "*=", correct: false},
+            {text: "!==", correct: false},
+            {text: "||", correct: false}
+        ]
+    },
+    {
+        question: "What returns the type of a variable, object, function, or expression?",
+        answers: [
+            {text: "typeof", correct: true},
+            {text: "delete", correct: false},
+            {text: "instanceof", correct: false},
+            {text: "void", correct: false}
+        ]
+    },
+    {
+        question: "What does var do?",
+        answers: [
+            {text: "declares a variable", correct: true},
+            {text: "iterates over a code block", correct: false},
+            {text: "declares an immutable variable", correct: false},
+            {text: "executes a block of code based on user input", correct: false}
+        ]
+    },
+    {
+        question: "The correct bracket symbol for an array is?",
+        answers: [
+            {text: "[ ]", correct: true},
+            {text: "{ }", correct: false},
+            {text: "( )", correct: false},
+            {text: "< >", correct: false}
+        ]
+    },
+    {
+        question: "Which button below contains a string?",
+        answers: [
+            {text: "`'This cant possibly be the right answer.'`", correct: true},
+            {text: "467", correct: false},
+            {text: "true", correct: false},
+            {text: "undefined", correct: false}
         ]
     },
 ]
-//end quiz
-
-//add player object info to highScore list
+let questionsHard = [
+    {
+        question: "What keyword refers to the object that the function is a property of?",
+        answers: [
+            {text: "this", correct: true},
+            {text: "that", correct: false},
+            {text: "function", correct: false},
+            {text: "theOther", correct: false},
+        ]
+    },
+    {
+        question: "What is DOM?",
+        answers: [
+            {text: "a programming interface for HTML and XML documents", correct: true},
+            {text: "the browser window", correct: false},
+            {text: "a character from the Fast and the Furious movie franchise", correct: false},
+            {text: "Document Objective Modal", correct: false}
+        ]
+    },
+    {
+        question: "A function that will be executed after another function gets executed is called?",
+        answers: [
+            {text: "a callback", correct: true},
+            {text: "memoization", correct: false},
+            {text: "a constructor function", correct: false},
+            {text: "call()", correct: false}
+        ]
+    },
+    {
+        question: "Which is not a type of scope in JS?",
+        answers: [
+            {text: "code scope", correct: true},
+            {text: "global scope", correct: false},
+            {text: "local scope", correct: false},
+            {text: "block scope", correct: false}
+        ]
+    },
+    {
+        question: "which will return true?",
+        answers: [
+            {text: "isNaN(`'Hello World'`)", correct: true},
+            {text: "isNaN(872)", correct: false},
+            {text: "isNaN(`'1'`)", correct: false},
+            {text: "isNaN(false)", correct: false}
+        ]
+    },
+    {
+        question: "What operator compares values and not types?",
+        answers: [
+            {text: "==", correct: true},
+            {text: "*=", correct: false},
+            {text: "&&", correct: false},
+            {text: "||", correct: false}
+        ]
+    },
+    {
+        question: "The difference between __ and __ is that the first compares values and the second compares value and type?",
+        answers: [
+            {text: "== , ===", correct: true},
+            {text: "!== , &", correct: false},
+            {text: ">= , ||", correct: false},
+            {text: "< , !>=", correct: false}
+        ]
+    },
+    {
+        question: "When a variable is declared but not assigned, it has a value of __.",
+        answers: [
+            {text: "undefined", correct: true},
+            {text: "null", correct: false},
+            {text: "undeclared", correct: false},
+            {text: "true", correct: false}
+        ]
+    },
+    {
+        question: "What does an arrow function NOT do?",
+        answers: [
+            {text: "has the ability to be used as a constructor", correct: true},
+            {text: "declares a function without the function keyword", correct: false},
+            {text: "returns value by default", correct: false},
+            {text: "allows us to write shorter function syntax", correct: false}
+        ]
+    },
+    {
+        question: "Which method removes the last element from an array?",
+        answers: [
+            {text: "pop()", correct: true},
+            {text: "concat()", correct: false},
+            {text: "push()", correct: false},
+            {text: "charAt()", correct: false}
+        ]
+    },
+]

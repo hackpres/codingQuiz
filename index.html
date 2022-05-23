@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://use.typekit.net/trj0jfc.css">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <script src="https://kit.fontawesome.com/c622ef30be.js" crossorigin="anonymous"></script>
     <title>Coding Quiz</title>
 </head>
 <body>
+    
     <header id="highScore-menu">
         <button id="menu-hamburger" class="highScore__hamburger">
             <div id="highScore-menu-top" class="highScore__menu__icon"></div>
             <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
             <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
         </button>
-
+        
         <div id="highScore-text" class="highScore__text hide">High Scores</div>
         <div id="goBack-text" class="goBack__text hide">&#60&#60 to quiz</div>
         <div id="menu-bar" class="highScore__bar hide"></div>
@@ -25,13 +27,29 @@
                     settings
                 </h3>
 
-                <h4 id="difficulty" class="settings__item">
-                    &#3866 difficulty
+                <label id="difficulty" class="toggle" for="difficultyToggle">
+                    <input class="toggle__input" name="difficulty" type="checkbox" role="switch" id="difficultyToggle">
+                    <div class="toggle__fill"></div>
+                </label>
+                <h4 id="difficultyh4" class="settings__item">
+                    easy difficulty
                 </h4>
-                <h4 id="audio" class="settings__item">
-                    &#3866 audio
+
+                <label id="audio" class="toggle" for="audioToggle">
+                    <input class="toggle__input" name="audio" type="checkbox" role="switch" id="audioToggle">
+                    <div class="toggle__fill"></div>
+                </label>
+                <h4 id="audioh4" class="settings__item">
+                    audio on
                 </h4>
             </div>
+        </div>
+
+        <div id="settings-icons" class="settings__icons">
+            <div id="settings-audioOn-icon" class=""><i class="fa-solid fa-volume-high"></i></div>
+            <div id="settings-audioOff-icon" class="hide"><i class="fa-solid fa-volume-xmark"></i></div>
+            <div id="settings-difficultyEasy-icon" class="">easy mode</div>
+            <div id="settings-difficultyHard-icon" class="hide">hard mode</div>
         </div>
 
         <div id="timer-container" class="timer__container hide">
@@ -77,7 +95,7 @@
             <p id="quiz-score" class="quiz__score"></p>
 
             <label id="initials-label" class="initials__label" for="initials">type initials to save your score</label>
-            <input class="initials" type="text" id="initials" name="initials">
+            <input class="initials" type="text" id="initials" maxlength="3" name="initials">
 
             <div id="quiz-controlBtn-container" class="quiz__controlBtn__container">
             <button id="quiz-restart-btn" class="restart__btn hide">RESTART</button>
