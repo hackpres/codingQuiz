@@ -65,3 +65,15 @@ Once the quiz is complete and the user types their initials in the input box a u
 ![scoreStorage](./assets/images/scoreStorage.png?raw=true "Code showing how my user object is created, stored, retrieved, and printed")
 My professor Stanley Lewis assisted me with the code to assign users keys with a randomly generated Id so that once saved, they are safe from being overwritten.
 ![generateUserId](./assets/images/generateUserId.png?raw=true "Code to generate a safe unique id for storing user info in local storage")
+
+## Additional Features
+
+I decided to challenge myself a bit extra with this assignment and attempt 2 additional features outside the scope of the acceptance criteria.
+
+One was to create an additional Questions array that would be combined with the original array when the user selects "hard mode". The time is also increased overall for hard mode, but the time per question is lower, I also attempted to mix in some more difficult questions to increase the challenge.
+![difficultyModes](./assets/images/difficultyModes.png?raw=true "Code functions for easy and hard modes")
+
+The other feature ended up being much easier than I had anticipated, but in my opinion adds so much to the user experience.
+I added audio for when the user selects the correct or incorrect answer. The audio was aquired from 99 sound effects (https://99sounds.gumroad.com/l/sound-effects)
+![audio](./assets/images/audio.png?raw=true "Variable declarations for the audio files and the volume")
+![audioFunctions](./assets/images/audioFunctions.png?raw=true "Code for the audio functions")
