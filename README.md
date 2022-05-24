@@ -63,7 +63,7 @@ The function to check the user selected answer starts by running a function call
 
 Once the quiz is complete and the user types their initials in the input box a user object is generated for the user and stored in local storage. Then the local storage keys are retrieved  and sorted based on score. My high score screen is designed to show only the top 5 scores, although the rest remain accessible via local storage.
 ![scoreStorage](./assets/images/scoreStorage.png?raw=true "Code showing how my user object is created, stored, retrieved, and printed")
-My professor Stanley Lewis assisted me with the code to assign users keys with a randomly generated Id so that once saved, they are safe from being overwritten.
+My instructor, Stanley Lewis, assisted me with the code to assign users keys with a randomly generated Id so that once saved, they are safe from being overwritten.
 ![generateUserId](./assets/images/generateUserId.png?raw=true "Code to generate a safe unique id for storing user info in local storage")
 
 ## Additional Features
