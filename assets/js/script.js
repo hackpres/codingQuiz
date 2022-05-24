@@ -17,7 +17,6 @@
 //()clear input field on change
 //()limit user initials to 3chars
 
-
     //* Bonus features to add!
         //* add an animation while calculating final score.
         //()* add difficulty options
@@ -26,7 +25,6 @@
         //* add background music
         //()* add audio for correct and wrong selections
 
-        
 //gather variables for the html elements
 const titleContainer = document.getElementById("title-container");
 const quizContainer = document.getElementById("quiz-container");
@@ -37,11 +35,8 @@ const timerContainer = document.getElementById("timer-container");
 const time = document.getElementById("timer");
 const completeContainer = document.getElementById("quiz-complete-container");
 const highScoresContainer = document.getElementById("highScores-container");
-const menuHamburgerBtn = document.getElementById("menu-hamburger");
 const highScoreText = document.getElementById("highScore-text");
-const goBackText = document.getElementById("goBack-text");
 const menuBar = document.getElementById("menu-bar");
-const menuList = document.getElementById("menu-bkgrd");
 const difficultyToggle = document.getElementById("difficulty");
 const audioToggle = document.getElementById("audio");
 const printScoreLocation = document.getElementById("quiz-score");
@@ -55,21 +50,20 @@ const audioWrong = new Audio();
 
 
 audioCorrect.src = "./assets/audio/correctSF.wav";
+// audioCorrect.volume = .1;
 audioWrong.src = "./assets/audio/wrongSF.wav";
+// audioWrong.volume = .1;
 
 
 //variables
 let shuffledQuestions, currentQuestionIndex, intervalId;
 //declares a variable timeLeft and sets its value to the total seconds (minutes * 60 + seconds)
-var timeLeft = 75;
+var timeLeft = 90;
 var score = 0;
 
 //event listeners
 startBtn.addEventListener("click", startQuiz);
 restartBtn.addEventListener("click", restartQuiz);
-menuHamburgerBtn.addEventListener("click", () => {
-    openMenu();
-});
 userInitials.addEventListener("change", () => {
     let inputForInitials = userInitials.value;
     let userObject = {userName: inputForInitials, userScore: score};
@@ -90,46 +84,56 @@ userInitials.addEventListener("change", () => {
         score = 0;
     });
 });
-goBackText.addEventListener("click", () => {
-    hideAll();
-    titleContainer.classList.remove("hide");
-    menuHamburgerBtn.classList.remove("hide");
-    startBtn.classList.remove("hide");
-    shuffledQuestions = undefined;
-    currentQuestionIndex = undefined;
-    intervalId = undefined;
-    answerBtnElements.classList.remove("hide");
-    while (highScoresList.firstChild) {
-        highScoresList.removeChild(highScoresList.firstChild);
-    }
-});
 difficultyToggle.addEventListener("change", () => {
-    if (difficultyToggle.checked === true) {
+    if (difficultyToggle.checked) {
         easyMode();
         difficultyToggle.checked = false
     } else {
         hardMode();
         difficultyToggle.checked = true
-
     }
 })
 audioToggle.addEventListener("change", () => {
-    if (audioToggle.checked === true) {
+    if (audioToggle.checked) {
         audioOn();
         audioToggle.checked = false
     } else {
         audioff();
         audioToggle.checked = true
-
     }
 })
+highScoreText.addEventListener("click", () => {
+    hideAll();
+    highScoresContainer.classList.remove("hide");
+    menuBar.classList.remove("hide");
+    highScoreText.innerText = "return to quiz";
+    highScoreText.classList.remove("hide");
+    if (difficultyToggle.checked) {
+        document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+    } else {
+        document.getElementById("settings-difficultyEasy-icon").classList.remove("hide"); 
+    }
+    if (audioToggle.checked) {
+        document.getElementById("settings-audioOff-icon").classList.remove("hide");
+    } else {
+        document.getElementById("settings-audioOn-icon").classList.remove("hide");
+    }
+    highScoreText.addEventListener("click", () => {
+        highScoreText.innerText = "High Scores";
+        highScoresContainer.classList.add("hide");
+        restartQuiz();
+    })
+    getUserStorage();
+    clearInterval(intervalId);
+    timeLeftDifficultyCheck();
+    score = 0;
+});
 
 function audioOn() {
     audioCorrect.src = "./assets/audio/correctSF.wav";
     audioWrong.src = "./assets/audio/wrongSF.wav";
     document.getElementById("settings-audioOn-icon").classList.remove("hide");
     document.getElementById("settings-audioOff-icon").classList.add("hide");
-    document.getElementById("audioh4").innerText = "audio on";
 }
 
 function audioff() {
@@ -137,7 +141,6 @@ function audioff() {
     audioWrong.src = "";
     document.getElementById("settings-audioOn-icon").classList.add("hide");
     document.getElementById("settings-audioOff-icon").classList.remove("hide");
-    document.getElementById("audioh4").innerText = "audio off";
 }
 
 function easyMode() {
@@ -145,8 +148,8 @@ function easyMode() {
     console.log(questions);
     document.getElementById("settings-difficultyEasy-icon").classList.remove("hide");
     document.getElementById("settings-difficultyHard-icon").classList.add("hide");
-    document.getElementById("difficultyh4").innerText = "easy difficulty";
     clearInterval(intervalId);
+    quizContainer.classList.add("hide");
     restartQuiz();
 }
 
@@ -155,16 +158,16 @@ function hardMode() {
     console.log(questions);
     document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
     document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
-    document.getElementById("difficultyh4").innerText = "hard difficulty";
     clearInterval(intervalId);
+    quizContainer.classList.add("hide");
     restartQuiz();
 }
 
 function timeLeftDifficultyCheck() {
-    if (difficultyToggle.checked === true) {
-        timeLeft = 110;
+    if (difficultyToggle.checked) {
+        timeLeft = 130;
     } else {
-        timeLeft = 75;
+        timeLeft = 90;
     }
 }
 
@@ -176,40 +179,10 @@ function generateUserId() {
         //.toString(36) returns math.random() the the 36th number as a string
         //.substring(2)  returns the string of 36 math.random numbers starting from index position 2 to the end of the string
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
-    
 }
 
-function openMenu() {
-    menuBar.classList.remove("hide");
-    highScoreText.classList.remove("hide");
-    menuList.classList.remove("hide");
-    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
-    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
-    document.getElementById("settings-audioOn-icon").classList.add("hide");
-    document.getElementById("settings-audioOff-icon").classList.add("hide");
-    window.addEventListener("mouseup", (e) => {
-        if (e.target !== highScoreText && e.target !== difficultyToggle && e.target !== audioToggle) {
-            closeMenu();
-            restartQuiz();
-        }
-    });
-    highScoreText.addEventListener("click", () => {
-        console.log("high score clicked");
-        hideAll();
-        highScoresContainer.classList.remove("hide");
-        menuBar.classList.remove("hide");
-        goBackText.classList.remove("hide");
-        if (difficultyToggle.checked === true) {
-            document.getElementById("settings-difficultyHard-icon").classList.add("hide");
-        } else {
-            document.getElementById("settings-difficultyEasy-icon").classList.add("hide"); 
-        }
-        getUserStorage();
-        clearInterval(intervalId);
-        timeLeftDifficultyCheck();
-        score = 0;
-    });
-}
+// let menuState = false;
+// menuState = !menuState
 
 function hideAll() {
     titleContainer.classList.add("hide");
@@ -219,11 +192,8 @@ function hideAll() {
     timerContainer.classList.add("hide");
     completeContainer.classList.add("hide");
     highScoresContainer.classList.add("hide");
-    menuHamburgerBtn.classList.add("hide");
     highScoreText.classList.add("hide");
-    goBackText.classList.add("hide");
     menuBar.classList.add("hide");
-    menuList.classList.add("hide");
     startBtn.classList.add("hide");
     restartBtn.classList.add("hide");
     document.getElementById("settings-difficultyHard-icon").classList.add("hide");
@@ -235,24 +205,40 @@ function hideAll() {
     }
 }
 
-function closeMenu() {
-    menuBar.classList.add("hide");
-    highScoreText.classList.add("hide");
-    menuList.classList.add("hide");
-}
-
 function restartQuiz() {
     timeLeftDifficultyCheck();
     score = 0
-    hideAll();
+    // hideAll();
     titleContainer.classList.remove("hide");
     startBtn.classList.remove("hide");
-    menuHamburgerBtn.classList.remove("hide");
-    if (difficultyToggle.checked === true) {
-        document.getElementById("settings-difficultyEasy-icon").classList.remove("hide");
-    } else {
-        document.getElementById("settings-difficultyHard-icon").classList.remove("hide"); 
-    }
+    menuBar.classList.remove("hide");
+    highScoreText.classList.remove("hide");
+    highScoreText.addEventListener("click", () => {
+        // hideAll();
+        highScoresContainer.classList.remove("hide");
+        menuBar.classList.remove("hide");
+        highScoreText.innerText = "return to quiz";
+        highScoreText.classList.remove("hide");
+        if (difficultyToggle.checked) {
+            document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+        } else {
+            document.getElementById("settings-difficultyEasy-icon").classList.remove("hide"); 
+        }
+        if (audioToggle.checked) {
+            document.getElementById("settings-audioOff-icon").classList.remove("hide");
+        } else {
+            document.getElementById("settings-audioOn-icon").classList.remove("hide");
+        }
+        highScoreText.addEventListener("click", () => {
+            highScoreText.innerText = "High Scores";
+            highScoresContainer.classList.add("hide");
+            restartQuiz();
+        })
+        getUserStorage();
+        clearInterval(intervalId);
+        timeLeftDifficultyCheck();
+        score = 0;
+    });
 }
 
 function startQuiz() { 
@@ -263,9 +249,12 @@ function startQuiz() {
         //executes the startTimer function with the parameters time (element), 2 (minutes), 15 (seconds).
     timerInterval();
         //adds the class of hide to the title container
+    menuBar.classList.add("hide");
+    highScoreText.classList.add("hide");
     titleContainer.classList.add("hide");
         //removes the class of hide from the question container
     quizContainer.classList.remove('hide');
+    answerBtnElements.classList.remove("hide");
         //adds the class of hide to the startBtn
     startBtn.classList.add("hide");
         //neat way to shuffle. since math random returns a value of 0-1 and sort will sort differently based on + and - integers, when we subtract .5 from Math.random approx half of the returned values will be - and half +, sort will shuffle accordingly.
@@ -319,6 +308,7 @@ function stopTimer() {
 
 function endQuiz() {
     setTimeout(function() {
+        hideAll()
         quizContainer.classList.add("hide");
         completeContainer.classList.remove("hide");
         quizEndScoreUpdate(timeLeft);
@@ -412,7 +402,7 @@ function selectedAnswer(e) {
         if (selectedAnswerBtn.innerText === answer.text) {
             if (answer.correct) {
                 selectedAnswerBtn.classList.add("correct");
-                score += 10;
+                score += 5;
                 audioCorrect.play();
             } else {
                 timeLeft = timeLeft - 10

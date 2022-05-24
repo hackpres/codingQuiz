@@ -10,46 +10,34 @@
     <title>Coding Quiz</title>
 </head>
 <body>
-    
     <header id="highScore-menu">
-        <button id="menu-hamburger" class="highScore__hamburger">
-            <div id="highScore-menu-top" class="highScore__menu__icon"></div>
-            <div id="highScore-menu-mid" class="highScore__menu__icon"></div>
-            <div id="highScore-menu-bottom" class="highScore__menu__icon"></div>
-        </button>
         
-        <div id="highScore-text" class="highScore__text hide">High Scores</div>
-        <div id="goBack-text" class="goBack__text hide">&#60&#60 to quiz</div>
-        <div id="menu-bar" class="highScore__bar hide"></div>
-        <div id="menu-bkgrd" class="menu__bkgrd hide">
+        <div id="highScore-text" class="highScore__text">High Scores</div>
+        <div id="menu-bar" class="highScore__bar"></div>
             <div id="settings-container" class="settings__container">
-                <h3 id="settings" class="settings__header">
-                    settings
-                </h3>
 
-                <label id="difficulty" class="toggle" for="difficultyToggle">
-                    <input class="toggle__input" name="difficulty" type="checkbox" role="switch" id="difficultyToggle">
-                    <div class="toggle__fill"></div>
-                </label>
-                <h4 id="difficultyh4" class="settings__item">
-                    easy difficulty
-                </h4>
+                <div id="difficulty-container">
+                    <label id="difficulty" class="toggle" for="difficultyToggle">
+                        <input class="toggle__input" name="difficulty" type="checkbox" role="switch" id="difficultyToggle">
+                        <div class="toggle__fill"></div>
+                    </label>
+                    <div id="difficultyMode-title" class="settings__item">
+                        <div id="settings-difficultyEasy-icon" class="">easy mode</div>
+                        <div id="settings-difficultyHard-icon" class="hide">hard mode</div>
+                    </div>
+                </div>
 
-                <label id="audio" class="toggle" for="audioToggle">
-                    <input class="toggle__input" name="audio" type="checkbox" role="switch" id="audioToggle">
-                    <div class="toggle__fill"></div>
-                </label>
-                <h4 id="audioh4" class="settings__item">
-                    audio on
-                </h4>
+                <div id="audio-container">
+                    <label id="audio" class="toggle" for="audioToggle">
+                        <input class="toggle__input" name="audio" type="checkbox" role="switch" id="audioToggle">
+                        <div class="toggle__fill"></div>
+                    </label>
+                    <div id="audioMode-title" class="settings__item">
+                        <div id="settings-audioOn-icon" class=""><i class="fa-solid fa-volume-high"></i></div>
+                        <div id="settings-audioOff-icon" class="hide"><i class="fa-solid fa-volume-xmark"></i></div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div id="settings-icons" class="settings__icons">
-            <div id="settings-audioOn-icon" class=""><i class="fa-solid fa-volume-high"></i></div>
-            <div id="settings-audioOff-icon" class="hide"><i class="fa-solid fa-volume-xmark"></i></div>
-            <div id="settings-difficultyEasy-icon" class="">easy mode</div>
-            <div id="settings-difficultyHard-icon" class="hide">hard mode</div>
         </div>
 
         <div id="timer-container" class="timer__container hide">
@@ -58,7 +46,7 @@
     </header>
 
     <main id="quiz-card">
-        <div id="title-container" class="title__container ">
+        <div id="title-container" class="title__container">
             <h1 id="quiz-title" class="quiz__title">
                 JavaScript
             </h1>
