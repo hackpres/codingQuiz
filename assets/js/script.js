@@ -151,12 +151,6 @@ function timeLeftDifficultyCheck() {
 }
 
 function generateUserId() {
-        //Date.now() returns date and time in miliseconds
-        //.toString(36) returns the source code function to the 36th position as a string
-            //adds above and below
-        //Math.random() returns a random number between 0-1 but never 1
-        //.toString(36) returns math.random() the the 36th number as a string
-        //.substring(2)  returns the string of 36 math.random numbers starting from index position 2 to the end of the string
     return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
 
