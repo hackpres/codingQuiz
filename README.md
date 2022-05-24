@@ -32,7 +32,7 @@ github deployed app link:
 https://hackpres.github.io/codingQuiz/
 
 ## Screenshots of deployed app
-![titleMobile](./assets/images/quizMobile.png?raw=true "Mobile Title Screen")
+![titleMobile](./assets/images/titleMobile.png?raw=true "Mobile Title Screen")
 ![titleDesktop](./assets/images/titleDesktop.png?raw=true "Desktop Title Screen")
 
 Quiz Questions

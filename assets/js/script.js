@@ -1,31 +1,3 @@
-// "Music: www.bensound.com" or "Royalty Free Music from Bensound"
-
-//()  //()decrement timeLeft on missed question.
-//()only allow one answer to be selected for each question.
-//()implement points scoring system.
-    //()10pts for correct answer.
-    //()-5pts for incorrect answer.
-    //()15pts for every 10secs left at end of quiz.
-    //()1pt for every second under 10 at end of quiz.
-    //()-20pts for running out of time.
-//()display final score at end of quiz.
-//()add functionality to save initials/score to highscore screen.
-//add functionality to highscore "menu" on hover 
-    //()click for mobile.
-//()add remove hide from highscore screen on highscore click.
-//()add functionality to restart-btn
-//()clear input field on change
-//()limit user initials to 3chars
-
-    //* Bonus features to add!
-        //* add an animation while calculating final score.
-        //()* add difficulty options
-            //()easy (more time per question, 10 questions)
-            //()hard (less time per question, 20 questions)
-        //* add background music
-        //()* add audio for correct and wrong selections
-
-//gather variables for the html elements
 const titleContainer = document.getElementById("title-container");
 const quizContainer = document.getElementById("quiz-container");
 const questionElement = document.getElementById("question")
