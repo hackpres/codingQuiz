@@ -44,15 +44,19 @@ const highScoresList = document.getElementById("highScores-list");
 const userInitials = document.getElementById("initials");
 const startBtn = document.getElementById("quiz-start-btn");
 const restartBtn = document.getElementById("quiz-restart-btn");
+const difficultyHard = document.getElementById("settings-difficultyHard-icon");
+const difficultyEasy = document.getElementById("settings-difficultyEasy-icon");
+const audioOnIcon = document.getElementById("settings-audioOn-icon");
+const audioOffIcon = document.getElementById("settings-audioOff-icon");
 
 const audioCorrect = new Audio();
 const audioWrong = new Audio();
 
 
 audioCorrect.src = "./assets/audio/correctSF.wav";
-// audioCorrect.volume = .1;
+audioCorrect.volume = 0.2;
 audioWrong.src = "./assets/audio/wrongSF.wav";
-// audioWrong.volume = .1;
+audioWrong.volume = 0.2;
 
 
 //variables
@@ -74,10 +78,13 @@ userInitials.addEventListener("change", () => {
     menuBar.classList.remove("hide");
     highScoreText.classList.remove("hide");
     highScoreText.addEventListener("click", () => {
-        hideAll()
+        while (highScoresList.firstChild) {
+            highScoresList.removeChild(highScoresList.firstChild);
+        }
         highScoresContainer.classList.remove("hide");
         menuBar.classList.remove("hide");
-        goBackText.classList.remove("hide");
+        highScoreText.innerText = "back to quiz";
+        highScoreText.classList.remove("hide");
         getUserStorage();
         clearInterval(intervalId);
         timeLeftDifficultyCheck();
@@ -109,14 +116,14 @@ highScoreText.addEventListener("click", () => {
     highScoreText.innerText = "return to quiz";
     highScoreText.classList.remove("hide");
     if (difficultyToggle.checked) {
-        document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+        difficultyHard.classList.remove("hide");
     } else {
-        document.getElementById("settings-difficultyEasy-icon").classList.remove("hide"); 
+        difficultyEasy.classList.remove("hide"); 
     }
     if (audioToggle.checked) {
-        document.getElementById("settings-audioOff-icon").classList.remove("hide");
+        audioOffIcon.classList.remove("hide");
     } else {
-        document.getElementById("settings-audioOn-icon").classList.remove("hide");
+        audioOnIcon.classList.remove("hide");
     }
     highScoreText.addEventListener("click", () => {
         highScoreText.innerText = "High Scores";
@@ -130,24 +137,24 @@ highScoreText.addEventListener("click", () => {
 });
 
 function audioOn() {
-    audioCorrect.src = "./assets/audio/correctSF.wav";
-    audioWrong.src = "./assets/audio/wrongSF.wav";
-    document.getElementById("settings-audioOn-icon").classList.remove("hide");
-    document.getElementById("settings-audioOff-icon").classList.add("hide");
+    audioCorrect.volume = 0.2;
+    audioWrong.volume = 0.2;
+    audioOnIcon.classList.remove("hide");
+    audioOffIcon.classList.add("hide");
 }
 
 function audioff() {
-    audioCorrect.src = "";
-    audioWrong.src = "";
-    document.getElementById("settings-audioOn-icon").classList.add("hide");
-    document.getElementById("settings-audioOff-icon").classList.remove("hide");
+    audioCorrect.volume = 0.0;
+    audioWrong.volume = 0.0;
+    audioOnIcon.classList.add("hide");
+    audioOffIcon.classList.remove("hide");
 }
 
 function easyMode() {
     questions = questions.slice(0, 10);
     console.log(questions);
-    document.getElementById("settings-difficultyEasy-icon").classList.remove("hide");
-    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
+    difficultyEasy.classList.remove("hide");
+    difficultyHard.classList.add("hide");
     clearInterval(intervalId);
     quizContainer.classList.add("hide");
     restartQuiz();
@@ -156,8 +163,8 @@ function easyMode() {
 function hardMode() {
     questions = questions.concat(questionsHard);
     console.log(questions);
-    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
-    document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+    difficultyEasy.classList.add("hide");
+    difficultyHard.classList.remove("hide");
     clearInterval(intervalId);
     quizContainer.classList.add("hide");
     restartQuiz();
@@ -196,10 +203,10 @@ function hideAll() {
     menuBar.classList.add("hide");
     startBtn.classList.add("hide");
     restartBtn.classList.add("hide");
-    document.getElementById("settings-difficultyHard-icon").classList.add("hide");
-    document.getElementById("settings-difficultyEasy-icon").classList.add("hide");
-    document.getElementById("settings-audioOn-icon").classList.add("hide");
-    document.getElementById("settings-audioOff-icon").classList.add("hide");
+    difficultyHard.classList.add("hide");
+    difficultyEasy.classList.add("hide");
+    audioOnIcon.classList.add("hide");
+    audioOffIcon.classList.add("hide");
     while (highScoresList.firstChild) {
         highScoresList.removeChild(highScoresList.firstChild);
     }
@@ -208,26 +215,24 @@ function hideAll() {
 function restartQuiz() {
     timeLeftDifficultyCheck();
     score = 0
-    // hideAll();
     titleContainer.classList.remove("hide");
     startBtn.classList.remove("hide");
     menuBar.classList.remove("hide");
     highScoreText.classList.remove("hide");
     highScoreText.addEventListener("click", () => {
-        // hideAll();
         highScoresContainer.classList.remove("hide");
         menuBar.classList.remove("hide");
         highScoreText.innerText = "return to quiz";
         highScoreText.classList.remove("hide");
         if (difficultyToggle.checked) {
-            document.getElementById("settings-difficultyHard-icon").classList.remove("hide");
+            difficultyHard.classList.remove("hide");
         } else {
-            document.getElementById("settings-difficultyEasy-icon").classList.remove("hide"); 
+            difficultyEasy.classList.remove("hide"); 
         }
         if (audioToggle.checked) {
-            document.getElementById("settings-audioOff-icon").classList.remove("hide");
+            audioOffIcon.classList.remove("hide");
         } else {
-            document.getElementById("settings-audioOn-icon").classList.remove("hide");
+            audioOnIcon.classList.remove("hide");
         }
         highScoreText.addEventListener("click", () => {
             highScoreText.innerText = "High Scores";
@@ -308,9 +313,22 @@ function stopTimer() {
 
 function endQuiz() {
     setTimeout(function() {
-        hideAll()
-        quizContainer.classList.add("hide");
+        hideAll();
+        restartBtn.classList.remove("hide");
+        timerContainer.classList.remove("hide");
+        if (difficultyToggle.checked) {
+            difficultyHard.classList.remove("hide");
+        } else {
+            difficultyEasy.classList.remove("hide"); 
+        }
+        if (audioToggle.checked) {
+            audioOffIcon.classList.remove("hide");
+        } else {
+            audioOnIcon.classList.remove("hide");
+        }
         completeContainer.classList.remove("hide");
+        menuBar.classList.remove("hide");
+        highScoreText.classList.remove("hide");
         quizEndScoreUpdate(timeLeft);
         time.innerHTML = renderTimeLeft(timeLeft);
         clearInterval(intervalId);
